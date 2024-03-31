@@ -191,7 +191,7 @@ local function refreshConfigs()
 	local got, savedConfigs = database_utils.load(prefix .. "list", false)
 	if not got or not savedConfigs then return end
 
-	local emptyIndex, foundAnotherConfig
+	local emptyIndex, foundAnotherConfig, needsRemoval = nil, nil, {}
 
 	for i, v in pairs(savedConfigs) do
 		if foundAnotherConfig and emptyIndex then break end
@@ -199,8 +199,35 @@ local function refreshConfigs()
 		if v == "" then
 			emptyIndex = i
 		else
+			local got, dbConfig = database_utils.load(prefix .. v, false)
+
+			if not got or not dbConfig then
+				needsRemoval[v] = true
+				goto continue
+			end
+
 			foundAnotherConfig = true
 		end
+		
+	    ::continue::
+	end
+
+	if #needsRemoval > 0 then
+		database_utils.update(prefix .. "list", function(data)
+			local new = {}
+
+			for _, value in pairs(data) do
+				if needsRemoval[value] then
+					goto continue
+				end
+
+				table.insert(new, value)
+
+				::continue::
+			end
+
+			return new
+		end)
 	end
 
 	if type(emptyIndex) == "number" and foundAnotherConfig then
