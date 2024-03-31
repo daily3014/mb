@@ -162,7 +162,7 @@ local function importConfig(configString)
 	return antiaimSettings, name
 end
 
-local prefix = "v1-aap-config-"
+local prefix = "v2-aap-config-"
 
 if not database_utils.exists(prefix .. "list") then
 	local function addPreset(presetName, presetSettings)
@@ -194,14 +194,12 @@ local function refreshConfigs()
 	local emptyIndex, foundAnotherConfig, needsRemoval = nil, nil, {}
 
 	for i, v in pairs(savedConfigs) do
-		if foundAnotherConfig and emptyIndex then break end
-
 		if v == "" then
 			emptyIndex = i
 		else
-			local got, dbConfig = database_utils.load(prefix .. v, false)
+			local gotCfg, dbConfig = database_utils.load(prefix .. v, false)
 
-			if not got or not dbConfig then
+			if not gotCfg or not dbConfig then
 				needsRemoval[v] = true
 				goto continue
 			end
@@ -212,24 +210,22 @@ local function refreshConfigs()
 	    ::continue::
 	end
 
-	if #needsRemoval > 0 then
-		database_utils.update(prefix .. "list", function(data)
-			local new = {}
+	database_utils.update(prefix .. "list", function(data)
+		local new = {}
 
-			for _, value in pairs(data) do
-				if needsRemoval[value] then
-					goto continue
-				end
-
-				table.insert(new, value)
-
-				::continue::
+		for _, value in pairs(data) do
+			if needsRemoval[value] then
+				goto continue
 			end
 
-			savedConfigs = new
-			return new
-		end)
-	end
+			table.insert(new, value)
+
+			::continue::
+		end
+
+		savedConfigs = new
+		return new
+	end)
 
 	if type(emptyIndex) == "number" and foundAnotherConfig then
 		table.remove(savedConfigs, emptyIndex)
@@ -342,6 +338,7 @@ callbacks.register("paint", function()
 
 	if dropdownSelected ~= oldDropdownSelected then
 		oldDropdownSelected = dropdownSelected
+		refreshConfigs()
 		changeConfig(dropdownSelected + 1)
 	end
 end)
