@@ -208,7 +208,7 @@ local function refreshConfigs()
 
 			foundAnotherConfig = true
 		end
-		
+
 	    ::continue::
 	end
 
@@ -226,6 +226,7 @@ local function refreshConfigs()
 				::continue::
 			end
 
+			savedConfigs = new
 			return new
 		end)
 	end
