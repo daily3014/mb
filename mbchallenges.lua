@@ -257,7 +257,7 @@ callbacks.register("post_move", function(cmd)
 	end
 
 	if settings.corona:get() then
-		if info.nearbyTeammates >= 3 then
+		if info.nearbyTeammates >= 2 then
 			if timerRunning("corona") then
 				onTimerExpired("corona", kill)
 			else
