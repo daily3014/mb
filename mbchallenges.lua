@@ -14,18 +14,18 @@ local timers = {
 }
 
 local settings = {
-	paranoid = ui.add_checkbox("Paranoid", false), -- killbind if not near teammates
-	fragileLegs = ui.add_checkbox("Fragile Legs", false), --  killbind when taking fall damage
-	alwaysMoving = ui.add_checkbox("Always Moving", false), -- killbind if player stops moving
-	teamPlayer = ui.add_checkbox("Team Player", false), -- killbind if teammate dies
-	bhopMaster = ui.add_checkbox("Bhop Master", false), -- killbind if player stops bhopping
-	godMode = ui.add_checkbox("God Mode", false), -- killbind if player takes damage
-	earthBound = ui.add_checkbox("Earthbound", false), -- killbind if player leaves the ground
-	corona = ui.add_checkbox("Corona Virus", false), -- killbind if player gets too close to a teammate
-	lowProfile = ui.add_checkbox("Low Profile", false), -- killbind if player gets a kill
-	aquaphobia = ui.add_checkbox("Aquaphobia", false), -- killbind if player touches water
-	tired = ui.add_checkbox("Tired", false), -- make user stop moving for a random duration
-	hitman = ui.add_checkbox("Hitman", false), -- killbind if player fails to kill the target in 40 seconds
+	paranoid = ui.add_checkbox("Paranoid", false),
+	fragileLegs = ui.add_checkbox("Fragile Legs", false),
+	alwaysMoving = ui.add_checkbox("Always Moving", false),
+	teamPlayer = ui.add_checkbox("Team Player", false),
+	bhopMaster = ui.add_checkbox("Bhop Master", false),
+	godMode = ui.add_checkbox("God Mode", false)
+	earthBound = ui.add_checkbox("Earthbound", false),
+	corona = ui.add_checkbox("Corona Virus", false),
+	lowProfile = ui.add_checkbox("Low Profile", false),
+	aquaphobia = ui.add_checkbox("Aquaphobia", false),
+	tired = ui.add_checkbox("Tired", false),
+	hitman = ui.add_checkbox("Hitman", false),
 }
 
 ---@param entity1 Entity
