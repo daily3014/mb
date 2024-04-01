@@ -9,6 +9,8 @@ local timers = {
 	hitman = { left = 0, running = false },
 	tired = { left = 0, running = false },
 	moving = { left = 0, running = false },
+	paranoid = { left = 0, running = false },
+	corona = { left = 0, running = false }
 }
 
 local settings = {
@@ -256,13 +258,25 @@ callbacks.register("post_move", function(cmd)
 
 	if settings.corona:get() then
 		if info.nearbyTeammates >= 3 then
-			kill()
+			if timerRunning("corona") then
+				onTimerExpired("corona", kill)
+			else
+				setTimer("corona", 1.5)
+			end
+		else
+			resetTimer("corona")
 		end
 	end
 
 	if settings.paranoid:get() then
 		if info.farTeammates == 0 then
-			kill()
+			if timerRunning("paranoid") then
+				onTimerExpired("paranoid", kill)
+			else
+				setTimer("paranoid", 5)
+			end
+		else
+			resetTimer("paranoid")
 		end
 	end
 end)
