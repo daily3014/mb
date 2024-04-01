@@ -1,0 +1,12 @@
+paranoid = killbind if not near teammates
+fragileLegs =  killbind when taking fall damage
+alwaysMoving = killbind if player stops moving
+teamPlayer = killbind if teammate dies
+bhopMaster = killbind if player stops bhopping
+godMode = killbind if player takes damage
+earthBound = killbind if player leaves the ground
+corona = killbind if player gets too close to a teammate
+lowProfile = killbind if player gets a kill
+aquaphobia = killbind if player touches water
+tired = make user stop moving for a random duration
+hitman = killbind if player fails to kill the target in 40 seconds
