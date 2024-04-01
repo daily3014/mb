@@ -171,7 +171,7 @@ callbacks.register("post_move", function(cmd)
 			if timerRunning("earthBound") then
 				onTimerExpired("earthBound", kill)
 			else
-				setTimer("earthBound", 1)
+				setTimer("earthBound", .4)
 			end
 		end
 	elseif info.onGround then
@@ -248,7 +248,7 @@ callbacks.register("post_move", function(cmd)
 		end
 	end
 
-	if math.random(1, 20) == 1 and not hitmanEnabled and #enemies > 0 and settings.hitman:get() then
+	if math.random(1, 1200) == 1 and not hitmanEnabled and #enemies > 0 and settings.hitman:get() then
 		-- add text to screen saying whos target
 		local randomEnemy = enemies[math.random(1, #enemies)]
 		hitmanEnabled = true
